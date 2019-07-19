@@ -4,8 +4,13 @@ import os, datetime, re, random, numpy, operator, cv2, colorsys
 from sklearn.cluster import KMeans
 from PIL import Image, ImageDraw
 
-# set debug mode
+# settings
 DEBUG = False
+COLOR_BG = True
+PALETTE_HEIGHT = 168
+PALETTE_SIZE = 5
+MARGIN = 40
+OFFSET = 208
 
 def getBrightness(color):
   r, g, b = color
@@ -33,18 +38,17 @@ def extractColors(image, n):
 
   return clus_colors
 
+def createBackgroundImage(colorPalette):
+  r, g, b = [255, 255, 255]
+  if(COLOR_BG==True):
+    r, g, b = colorPalette[0]
+  return Image.new("RGB", (1080,1080),(r, g, b))
+
 def convertImages(input_files):
   # for every image in file list
   for i in input_files:
     # print state to terminal
     print("Converting " + i + '...')
-
-    # variables
-    COLOR_BG = True
-    PALETTE_HEIGHT = 168
-    PALETTE_SIZE = 5
-    MARGIN = 40
-    OFFSET = 208
 
     # open image and record size
     old_im = Image.open('input/' + i)
@@ -79,11 +83,8 @@ def convertImages(input_files):
     # calculate color palette
     colorPalette = extractColors(image, PALETTE_SIZE)
 
-    # create background image (white)
-    r, g, b = [255, 255, 255]
-    if(COLOR_BG==True):
-      r, g, b = colorPalette[0]
-    new_im = Image.new("RGB", (1080,1080),(r, g, b))
+    # create background image
+    new_im = createBackgroundImage(colorPalette)
 
     # paste small_im onto background new_im
     new_im.paste(small_im,(MARGIN, MARGIN))
