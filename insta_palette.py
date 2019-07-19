@@ -65,26 +65,26 @@ for i in input_files:
     new_im = Image.new("RGB", (1080,1080),(255,255,255))
 
     #define where to paste small_im
-    x_paste = 40
-    y_paste = 40
+    repeat = 5
+    margin = 40
+    offset = 208
 
     #paste small_im onto background new_im
-    new_im.paste(small_im,(x_paste,y_paste))
+    new_im.paste(small_im,(margin, margin))
 
     #draw palette squares and fill with cluster colours
     draw = ImageDraw.Draw(new_im)
+
     if aspect == "landscape":
-        draw.rectangle([40,872,208,1040], fill=tuple(clus_colours[0]), outline=None)
-        draw.rectangle([248,872,416,1040], fill=tuple(clus_colours[1]), outline=None)
-        draw.rectangle([456,872,624,1040], fill=tuple(clus_colours[2]), outline=None)
-        draw.rectangle([664,872,832,1040], fill=tuple(clus_colours[3]), outline=None)
-        draw.rectangle([872,872,1040,1040], fill=tuple(clus_colours[4]), outline=None)
+        for j in range(1, repeat):
+            left = (margin + offset) * j
+            right = offset * j
+            draw.rectangle([left, 872, right, 1040], fill=tuple(clus_colours[j - 1]), outline=None)
     else:
-        draw.rectangle([872,40,1040,208], fill=tuple(clus_colours[0]), outline=None)
-        draw.rectangle([872,248,1040,416], fill=tuple(clus_colours[1]), outline=None)
-        draw.rectangle([872,456,1040,624], fill=tuple(clus_colours[2]), outline=None)
-        draw.rectangle([872,664,1040,832], fill=tuple(clus_colours[3]), outline=None)
-        draw.rectangle([872,872,1040,1040], fill=tuple(clus_colours[4]), outline=None)
+        for j in range(0,5):
+            top = (margin + offset) * j
+            bottom = offset * j
+            draw.rectangle([872, top, 1040, bottom], fill=tuple(clus_colours[j - 1]), outline=None)
 
     #get modified date of original photo - this allows the easy sorting of the
     #output files by age of the original
