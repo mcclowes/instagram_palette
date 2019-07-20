@@ -1,2 +1,6 @@
-input/*
-output/*
+input/*.png
+input/*.jpg
+input/*.jpeg
+output/*.png
+output/*.jpg
+output/*.jpeg
