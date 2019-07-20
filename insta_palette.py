@@ -47,6 +47,9 @@ def createBackgroundImage(colorPalette):
 def convertImages(input_files):
   # for every image in file list
   for i in input_files:
+    if i == 'README.md':
+      break
+
     # print state to terminal
     print("Converting " + i + '...')
 

@@ -18,10 +18,14 @@ Based on <https://github.com/jamtyou/instagram_palette>
 
 ## Using this
 
-1. Ensure all the above modules are installed
-2. Add the images you want to convert to the `input` directory
-2. Run the following:
+1 - Ensure all the above modules are installed
+
+`pip install Pillow sklearn opencv-python numpy`
+
+2 - Add the images you want to convert to the `input` directory
+
+3 - Run the following:
 
 `python insta_palette.py`
 
-Then check the `output` directory
+4 - Check the `output` directory
