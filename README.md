@@ -29,3 +29,8 @@ Based on <https://github.com/jamtyou/instagram_palette>
 `python insta_palette.py`
 
 4 - Check the `output` directory
+
+# To do
+
+[] Separate out functionality into different files
+[] Improve cluster detection - currently missing nice colors
