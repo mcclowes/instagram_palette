@@ -34,3 +34,4 @@ Based on <https://github.com/jamtyou/instagram_palette>
 
 [] Separate out functionality into different files
 [] Improve cluster detection - currently missing nice colors
+[] Do color counts correspond with colors they're assigned to

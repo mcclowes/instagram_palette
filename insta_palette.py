@@ -53,6 +53,15 @@ def sortColors(colors):
   else: 
     return sorted(colors, key=lambda color: getBrightness(color), reverse=True)
 
+# exif metadata
+# orientation = 6
+def extractMetadata(image):
+  return {
+    ExifTags.TAGS[k]: v
+    for k, v in image._getexif().items()
+    if k in ExifTags.TAGS
+  }
+
 # --------------------------------------------
 
 # Functions
@@ -69,12 +78,16 @@ def extractColors(image, n):
   debug('> Finding colors...')
   # find colors
   fit = cluster.fit(px_list)
-  cluster_colors = sortColors(fit.cluster_centers_.astype("uint8").tolist())
+  cluster_colors = fit.cluster_centers_.astype("uint8").tolist()
+  debug(cluster_colors)
+  #cluster_colors = sortColors(cluster_colors)
 
   debug('> Finding color frequencies...')
   # count colour frequencies
   labels = cluster.fit_predict(px_list)
+  debug(labels)
   cluster_color_counts = Counter(labels)
+  debug(cluster_color_counts)
 
   for i in range(0, len(cluster_colors)):
     cluster_colors[i] = [cluster_colors[i], cluster_color_counts[i]]
